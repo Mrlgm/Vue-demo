@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+
+<body>
+<div id="app">
+    {{a = 6}}
+    <!--只支持单行语句-->
+</div>
+
+<script src='./vue.js'></script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            msg: "world",
+            pio: [1, 2, 3],
+            a: 2
+        },
+        created: () => {
+            alert('create')
+        },
+        mounted:()=>{
+            alert('mounted')
+        },
+
+        methods: {
+            handleClick: ()=> {
+                this.msg.push(pio)
+            }
+        }
+    })
+</script>
+</body>
+
+</html>
