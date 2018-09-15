@@ -5,7 +5,29 @@
     <title>计算属性</title>
 </head>
 <body>
-  <div id="app"></div>
-<script></script>
+<div id="app">
+    {{text}} <br>
+    {{text.split(',').reverse().join(',')}} <br>
+    <!--逻辑过长会臃肿，遇复杂逻辑，应当使用计算属性-->
+    ------使用计算属性-------- <br>
+    {{reverseText}} <br>
+    
+</div>
+<script src="./vue.js"></script>
+<script type="text/javascript">
+    //123,456,789变成789,456,123
+    var app = new Vue({
+        el: '#app',
+        data: {
+            text: '123,456,789'
+        },
+        //定义计算属性
+        computed:{
+            reverseText:function () {
+               return this.text.split(',').reverse().join(',')
+            }
+        }
+    })
+</script>
 </body>
 </html>
