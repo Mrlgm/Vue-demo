@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算购物车总价</title>
+</head>
+<body>
+<div id="app">
+两个购物车总计： {{prices}}
+</div>
+
+<script src="./vue.js"></script>
+<script type="text/javascript">
+    var app2= new Vue({
+        el:'#abc',
+        data:{
+            msg:'我是app2中的内容'
+        }
+    })
+    //需求，计算购物车中所有物品的价格
+    var app = new Vue({
+        el: '#app',
+        data: {
+            //第一个购物车
+            package1: [
+                {
+                    name: 'iPhoneXS',
+                    price: 6999,
+                    count: 2
+                },
+                {
+                    name: 'iPad',
+                    price: '2999',
+                    count: 3
+                }
+            ],
+            package2: [
+                {
+                    name: 'iPad',
+                    price: '2999',
+                    count: 2
+                },
+                {
+                    name: 'iPhoneXS',
+                    price: 6999,
+                    count: 1
+                }
+            ]
+        },
+        computed: {
+            //如果计算属性直接跟一个function，默认就是getter函数
+            //每个计算属性包含getter和setter
+            //修改值的时候触发setter函数
+            prices: function () {
+                let prices = 0;
+                for (let i = 0; i < this.package1.length; i++) {
+                    prices += this.package1[i].price * this.package1[i].count
+                }
+                for (let j = 0; j < this.package2.length; j++) {
+                    prices += this.package2[j].price * this.package2[j].count
+                }
+                return  prices + '-------' + app2.msg
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

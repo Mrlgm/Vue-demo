@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>展示姓名</title>
+</head>
+<body>
+<div id="app">
+    我的姓名是------{{fullName}}
+</div>
+<script src="./vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            firstName: 'Liang',
+            lastName: 'Guangming'
+        },
+        computed: {
+            //计算属性默认用法，getter函数
+            //fullName: function () {
+            //    return this.firstName + ' ' + this.lastName
+            //}
+            fullName: {
+                get: function () {
+                    return this.firstName + ' ' + this.lastName
+                },
+                set: function (value) {
+                    //用逗号分割 Liu,Bei
+                    console.log('我是set方法，我被调用了')
+                    let names = value.split(',')//分割为数组
+                    this.firstName = names[0]
+                    this.lastName = names[1]
+                }
+            }
+        }
+    })
+</script>
+</body>
+</html>
