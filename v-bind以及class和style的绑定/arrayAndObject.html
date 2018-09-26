@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绑定class</title>
+    <style>
+        .divstyle {
+            background: red;
+            width: 100px;
+            height: 100px;
+        }
+
+        .borderstyle {
+            border: 10px solid green;
+        }
+
+        .btn {
+            background-color: red;
+        }
+
+        .active {
+            background-color: black;
+            height: 100px;
+            width: 100px;
+        }
+
+        .error {
+            border: 10px solid blue;
+        }
+    </style>
+</head>
+<body>
+绑定class： <br>
+<div id="app">
+    数组和对象混用
+    <div :class="[{active : isActive},errorClass]"></div>
+</div>
+<script src="../vue.js"></script>
+<script>
+    // 需求点击一个按钮来回切换背景颜色为红蓝切换
+    var app = new Vue({
+        el: '#app',
+        data: {
+            isActive: true,
+            errorClass: 'error'
+        }
+    })
+</script>
+</body>
+</html>
