@@ -6,23 +6,56 @@
 </head>
 <body>
 <div id="app">
-    <div @click="divClick">
-        <button @click="buttonClick">点击</button>
+    <div @click.self="divClick" style="height: 100px;width: 100px;border: 1px solid red;">
+        <button @click.stop="buttonClick">点击</button>
+        .stop阻止向上冒泡
     </div>
+    <hr>
+    prevent的用法： <br>
+    每次提交表单都会重载页面
+    <form action="" @submit.prevent="handle">
+        <button type="submit">提交表单</button>
+    </form>
+    <hr>
+    self的作用：只是作用在元素本身，而非子元素的时候调用
+    <div @click.self="divClick" style="height: 100px;width: 100px;border: 1px solid red;">
+        <button @click="buttonClick">点击</button>
+
+    </div>
+    <hr>
+    once：只执行一次的方法
+    <button @click="onceMethod">执行无限次</button>
+    <button @click.once="onceMethod">只执行一次</button>
+    <hr>
+    监听键盘事件：keyup
+    <br>
+    <input @keyup.13="submit1" type="text">
+    vuejs为我们提供了.enter .tab .delete
 </div>
 <script src="../vue.js"></script>
 <script>
     var app = new Vue({
-        el:'#app',
-        data:{
-            count:0
+        el: '#app',
+        data: {
+            count: 0
         },
-        methods:{
-            divClick:function () {
+        methods: {
+            //向上冒泡
+            divClick: function () {
                 alert('div点击了')
             },
-            buttonClick:function () {
+            buttonClick: function () {
                 alert('button点击了')
+            },
+            handle: function () {
+                alert('我不重载了，页面也不刷新了')
+            },
+            onceMethod: function () {
+                alert('执行了')
+            },
+            submit1:function (x) {
+                console.log(x)
+                alert('按下了ENTER键')
             }
         }
     })
