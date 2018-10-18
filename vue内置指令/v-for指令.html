@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-for指令</title>
+</head>
+<body>
+<div id="app">
+    v-for的用法：v-for一定是写在要遍历的元素上 <br>
+    遍历多个对象一定是遍历数组 <br>
+    （1）遍历多个对象：<br>
+    学号vuejs的方法是：
+    <ul>
+        <li v-for="item in vueMethods">{{item.name}}</li>
+    </ul>
+    <br>
+    带索引的写法：括号的第一个变量，代表item，第二个代表index
+    <ul>
+        <li v-for="(item, index) in vueMethods">{{index}}-----{{item.name}}</li>
+    </ul>
+    <hr>
+    （2）遍历一个对象的多个属性：
+    <span v-for="item in girlFriends"> {{item}}</span> <br>
+    拿到value，key，index的写法 v-k-i ：
+    <div v-for="(value, key, index) in girlFriends">第{{index}}老婆：键是：{{key}} ---{{value}}</div>
+</div>
+<script src="../vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data:{
+            //数组
+            vueMethods:[
+                {name:'多思考'},
+                {name:'多练习'},
+                {name:'多听课'}
+            ],
+            girlFriends:{
+                girl1: 'may',
+                girl2: 'june',
+                girl3: 'july'
+            }
+        }
+    })
+</script>
+</body>
+</html>

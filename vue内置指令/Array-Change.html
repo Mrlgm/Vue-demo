@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组更新</title>
+</head>
+<body>
+<div id="app">
+    <div v-for="item in arr">{{item}}</div>
+    <button @click="sortArr">正排序</button>
+    <button @click="reserveArr">反排序</button>
+    <hr>
+    <button @click="changeArr">改变数组指定项</button>
+    <button @click="changeArrLength">改变数组长度</button>
+    <hr>
+    返回字符串中含有oo的项：
+    {{matchOO}}
+</div>
+<script src="../vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            arr: ['book', 'pen', 'pencil']
+        },
+        methods: {
+            //利用sort进行排序
+            sortArr: function () {
+                //从小到大排
+                this.arr.sort(function (a, b) {
+                    return a.length - b.length
+                })
+            },
+            reserveArr: function () {
+                //从大到小排
+                this.arr.sort(function (a, b) {
+                    return b.length - a.length
+                })
+            },
+            //改变数组的指定项
+            changeArr: function () {
+                //vue检测不到
+                //this.arr[0] = 'jjb'
+                app.$set(app.arr, 1 , 'car')
+            },
+            //改变数组的长度
+            changeArrLength: function () {
+                //vue检测不到
+                //this.arr.length = 1
+                this.arr.splice(0,1)
+            }
+        },
+        computed:{
+            matchOO:function () {
+                return this.arr.filter(function (value) {
+                    return value.match(/oo/)
+                })
+            }
+        }
+    })
+    //改变vue数据的第一项
+
+</script>
+</body>
+</html>
