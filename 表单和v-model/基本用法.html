@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    v-model的用法：<br>
+    <hr>
+    input和textarea的用法：<br>
+    <input type="text" v-model="value"> <br>
+    输入的值：{{value}}
+    <br>
+    表单内容只依赖绑定的值msg，初始化插入的值不会显示 <br>
+    <textarea name="" id="" cols="30" rows="10" v-model="msg">我是多行文本框的</textarea> <br>
+    输入的值：{{msg}}
+    <hr>
+    单选框：<br>
+    单个单选框---用v-bind<input type="radio" name="" :checked="oneRadio" @click="oneChecked"> <br>
+    此处用v-model不生效 <br>
+    多个单选框：
+    苹果：<input type="radio" name="fruit" value="苹果" v-model="fruitName">
+    香蕉：<input type="radio" name="fruit" value="香蕉" v-model="fruitName">
+    梨子：<input type="radio" name="fruit" value="梨子" v-model="fruitName">------选中：{{fruitName}} <br>
+    组合绑定需要v-model配合value使用
+    <hr>
+    复选框：
+    单个复选框，直接绑定布尔值，可以用v-model，也可以用v-bind <br>
+    单个复选框---用v-bind：<input type="checkbox" name="" :checked="oneRadio"> <br>
+    单个复选框---用v-model：<input type="checkbox" name="" v-model="oneRadio">
+    <br>---<br>
+    多个复选框：
+    苹果：<input type="checkbox" value="苹果" v-model="checkedFruit">
+    香蕉：<input type="checkbox" value="香蕉" v-model="checkedFruit">
+    梨子：<input type="checkbox" value="梨子" v-model="checkedFruit"> <br>
+    现在选中了：{{checkedFruit}} <br>
+    多个复选框使用v-model绑定数组，如果绑定的字符串则转化为true和false，与所有绑定的复选框的checked属性相对应
+    <br>----<br>
+    单选的下拉框：<br>
+    如果是单选，所绑定的value值初始化可以为数组，也可以为字符串
+    <select v-model="selectedFruit">
+        <option value="苹果">苹果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="梨子">梨子</option>
+    </select>----现在选中的是：{{selectedFruit}} <br>
+    多选的下拉框：
+    <select v-model="selectedFruitMpl" multiple>
+        <option value="苹果">苹果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="梨子">梨子</option>
+    </select>----现在选中的是：{{selectedFruitMpl}}<br>
+    如果是单选，初始化最好给定字符串，因为v-model绑定的是静态字符串或布尔值 <br>
+    如果是多选，初始化最好给定一个数组
+    <hr style="color: darkblue;">
+    绑定值 <br>
+    单选按钮：
+    <input type="radio" name="" v-model="picked" v-bind:value="value">---{{picked}}<br>
+    只需要用v-bind给单个单选框绑定一个value值，此时v-model绑定的就是他的value值 <br>------<br>
+    复选框按钮：
+    <input type="checkbox" v-model="toggle" :true-value="trueValue" :false-value="falseValue">{{toggle}}
+    <br>----选中和不选中的value不一样 <br>
+</div>
+<script src="../vue.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            value:'',
+            msg:'',
+            oneRadio:true,
+            fruitName:'',
+            checkedFruit:[],
+            selectedFruit:'苹果',
+            selectedFruitMpl:[],
+            picked:true,
+            toggle:true,
+            trueValue:'我被选择了',
+            falseValue:'我没有被选中'
+        },
+        methods:{
+            oneChecked:function () {
+                this.oneRadio = !this.oneRadio
+            }
+        }
+    })
+</script>
+</body>
+</html>
