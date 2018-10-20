@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的使用方法</title>
+    <style>
+        div {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="app1" style="height: 200px; width: 200px; margin: 50px; border: 1px solid red;">
+    <our-component></our-component>
+    <my-component></my-component>
+    <button @click="push">{{count}}</button>
+    <button @click="push">{{count}}</button>
+    <hr>
+    <btn-component></btn-component>
+    <btn-component></btn-component>
+</div>
+<div id="app2" style="height: 200px; width: 200px; margin: 50px; border: 1px solid green;">
+    <our-component></our-component>
+    <my-component></my-component>
+
+    <table>
+        <my-component></my-component>
+        <tbody is="my-component"></tbody>
+    </table>
+</div>
+html标签受限：<br>
+table中只能有tr，td，tbody这些元素，需要使用is属性来挂载组件
+<script src="../vue.js"></script>
+<script>
+    Vue.component('our-component', {
+        template: '<div>我是一个全局注册组件</div>'
+    })
+    //优点：全局注册，所有vue实例都可以使用
+    //缺点：权限太大，容错率降低
+    var app1 = new Vue({
+        el: '#app1',
+        data: {
+            count: 0
+        },
+        components: {
+            'my-component': {
+                template: '<div>我是app1局部注册组件</div>'
+            },
+            'btn-component': {
+                template: '<button @click="count++">{{count}}</button>',
+                data: function () {
+                    return {
+                        count: 0
+                    }
+                }
+            }
+        },
+        methods: {
+            push: function () {
+                this.count += 1
+            }
+        }
+    })
+    var app2 = new Vue({
+        el: '#app2',
+        data: {},
+        components: {
+            'my-component': {
+                template: '<div>我是app2局部注册组件</div>'
+            }
+        }
+    })
+</script>
+</body>
+</html>
