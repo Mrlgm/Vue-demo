@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>非父组件之间的通信</title>
+</head>
+<body>
+<div id="app">
+    <a-component ref="a"></a-component>
+    <b-component ref="b"></b-component>
+    <hr>
+    <child-component ref="c"></child-component>
+    ----{{msg}}
+    <hr>
+    <button @click="getChildData">父组件按钮，拿子组件内容</button>
+    --- {{formChild}}
+</div>
+<script src="../vue.js"></script>
+<script>
+    Vue.component('a-component', {
+        template: '<div><button @click="handle">传递数据</button></div>',
+        data: function () {
+            return {
+                aaa: '我是a组件的内容',
+                msg: '我是a的信息'
+            }
+        },
+        methods: {
+            handle: function () {
+                this.$root.bus.$emit('message', this.aaa)
+            }
+        }
+    })
+    Vue.component('b-component', {
+        template: '<div>{{bbb}}</div>',
+        data: function () {
+            return {
+                bbb: '',
+                msg: '我是b的信息'
+            }
+        },
+        created: function () {
+            //A组件在实例创建的时候就监听事件----message
+            this.$root.bus.$on('message', function (value) {
+                alert(value)
+            })
+        }
+    })
+    Vue.component('child-component', {
+        template: '<button @click="setData">修改父数据</button>',
+        data: function () {
+            return {
+                msg: '我是s的信息'
+            }
+        },
+        methods: {
+            setData: function () {
+                this.$parent.msg = '数据已经修改了'
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            //bus中介
+            bus: new Vue(),
+            msg: '数据还未修改',
+            formChild: '初始值还未拿到'
+        },
+        methods: {
+            getChildData: function () {
+                //用来拿子组件中的内容 ----$refs
+                this.formChild = this.$refs.a.msg
+            }
+        },
+        components: {}
+    })
+</script>
+</body>
+</html>
