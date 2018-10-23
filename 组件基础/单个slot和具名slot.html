@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slot插槽</title>
+</head>
+<body>
+<div id="app">
+    <a-component><p>我是父组件的内容</p></a-component>
+    <b-component>
+        <h3 slot="header">我是标题</h3>
+        <p>我是正文内容</p>
+        <p>正文内容有两段</p>
+        <p slot="footer">我是底部信息</p>
+    </b-component>
+</div>
+<script src="../vue.js"></script>
+<script>
+    Vue.component('a-component', {
+        //单个插槽
+        template: '<div><slot>如果父组件没有内容，我就默认出现</slot></div>',
+        data: function () {
+            return {
+                message: '我是子组件的内容',
+                childShow: false
+            }
+        }
+    })
+    Vue.component('b-component', {
+        //具名插槽
+        template: '<div>' +
+            '<div class="header"><slot name="header"></slot></div>' +
+            '<div class="container"><slot></slot></div>' +
+            '<div class="footer"><slot name="footer"></slot></div>' +
+            '</div>',
+        data: function () {
+            return {
+                message: '我是子组件的内容',
+                childShow: false
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            message: '我是父组件',
+            childShow: true
+        },
+        components: {}
+    })
+</script>
+</body>
+</html>
