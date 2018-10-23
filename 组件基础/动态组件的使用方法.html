@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态组件的使用方法</title>
+</head>
+<body>
+<div id="app">
+    <component :is="view"></component>
+    <button @click="handleView('a')">A</button>
+    <button @click="handleView('b')">B</button>
+    <button @click="handleView('c')">C</button>
+</div>
+<script src="../vue.js"></script>
+<script>
+    //通过点击不同的按钮切换不同的组件
+    Vue.component('a-component', {
+        template: '<div>我是大爷</div>',
+    })
+    Vue.component('b-component', {
+        template: '<div>我是二爷</div>',
+    })
+    Vue.component('c-component', {
+        template: '<div>我是三爷</div>',
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            view:'a-component'
+        },
+       methods:{
+            handleView:function(tag){
+                this.view = tag + '-component'
+            }
+       }
+    })
+</script>
+</body>
+</html>
