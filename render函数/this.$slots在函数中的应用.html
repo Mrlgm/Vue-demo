@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>$slots在函数中的应用</title>
+</head>
+<body>
+<div id="app">
+    <child>
+        <p>我的第一句</p>
+        <p>我的第二句</p>
+        <h3 slot="header">我是标题</h3>
+        <h5 slot="footer">我是最后面</h5>
+    </child>
+</div>
+<script src="../vue.js"></script>
+<script>
+    //第三个 参数存的就是虚拟节点
+    Vue.component('child',{
+        render:function(createElement){
+            var header = this.$slots.header//返回的内容就是含有VNode的数组
+            var main = this.$slots.default
+            var footer = this.$slots.footer
+            return createElement('div',[
+                createElement('header',header),
+                createElement('main',main),
+                createElement('footer',footer)
+            ])
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        components: {}
+    })
+</script>
+</body>
+</html>
