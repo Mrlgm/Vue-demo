@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render函数传递数据</title>
+</head>
+<body>
+<div id="app">
+    <my-component :show="show"></my-component>
+    <button @click="switchShow">切换</button>{{show}}
+</div>
+<script src="../vue.js"></script>
+<script>
+    //需求：使用点击按钮切换美女图片
+    Vue.component('my-component', {
+        props:['show'],
+        render:function (createElement) {
+            var imgSrc
+            if(this.show){
+                imgSrc = 'http://img.wwnight.cn//image/1.png'
+            }else{
+                imgSrc = 'http://img.wwnight.cn//image/2.png'
+            }
+            return createElement('img',{
+                attrs:{
+                    src: imgSrc
+                },
+                style:{
+                    width:'200px'
+                }
+            })
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {
+            show: false
+        },
+        methods:{
+            switchShow:function () {
+                this.show = !this.show
+            }
+        }
+    })
+</script>
+</body>
+</html>
