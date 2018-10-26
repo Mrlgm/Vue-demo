@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render函数的第二个参数</title>
+</head>
+<body>
+<div id="app">
+    <child></child>
+</div>
+<script src="../vue.js"></script>
+<script>
+    Vue.component('child', {
+        props: [],
+        //第二个参数是可选的，第二个参数是数据对象----只能是object
+        render: function (createElement) {
+            return createElement({
+                template:'<div>我找不到工作</div>'
+            }, {
+                class: ['foo'],
+                style:{
+                    color:'red',
+                    fontSize:'16px'
+                },
+                //正常的html特性
+                attrs:{
+                    id:'foo',
+                    src:'jjj'
+                },
+                //用来写原生的dom属性
+                domProps:{
+                    innerHTML:'<span style="color:blue;font-size: 15px;">我是蓝色</span>'
+                }
+            })
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        components: {}
+    })
+</script>
+</body>
+</html>

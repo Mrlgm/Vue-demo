@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>render函数的第一个参数</title>
+</head>
+<body>
+<div id="app">
+    <child></child>
+</div>
+<script src="../vue.js"></script>
+<script>
+    Vue.component('child', {
+        props: [],
+        //在render函数方法中，参数必须是createElement，这在源码中已经定义好了
+        render: function (createElement) {
+            //第一个参数必选
+            //render的第一个参数可以是string|object|function
+            //string----一个html标签
+            //object----一个含有数据选项的对象
+            //function----返回一个含有数据选项的对象
+            // var domFun = function () {
+            //     return {
+            //         template:'<div>锄禾日当午</div>'
+            //     }
+            // }
+            // return createElement(domFun())
+            return createElement({
+                template:'<div>锄禾日当午</div>'
+            })
+
+        }
+    })
+    var app = new Vue({
+        el: '#app',
+        data: {},
+        components: {}
+    })
+</script>
+</body>
+</html>
